@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <stdio.h>
 
 static int	**malloc_map(int fd, char ***splited, int *rows, int *cols)
 {
@@ -102,10 +103,11 @@ static int		fill_map(t_map *map, char **table, t_camera *cam)
                 else
 					put_error(1);
             }
-
         }
         ft_free_table(&temp, map->cols);
     }
+	if (cam_pos == 0)
+		put_error(2);
 	check_full_map(map);
     return (0);
 }
@@ -114,17 +116,14 @@ int				read_map(char *map_file, t_map *map, t_camera *cam)
 {
     int     fd;
     char    **splited;
-    int     rows;
-    int     cols;
 
     fd = open(map_file, O_RDONLY);
     if (fd != -1) {
-        map->walls = malloc_map(fd, &splited, &rows, &cols);
-        if (fill_map(map, splited, cam))
+        map->walls = malloc_map(fd, &splited, &map->rows, &map->cols);
+		printf("Map allocated with size: (%d, %d)", map->rows, map->cols);
+        if (!map->walls || fill_map(map, splited, cam))
             exit(1);
-        map->rows = rows;
-        map->cols = cols;
-        ft_free_table(&splited, rows);
+        ft_free_table(&splited, map->rows);
         close(fd);
     }
     else
