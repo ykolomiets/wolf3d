@@ -21,6 +21,7 @@
 # define MIN(x, y) ((x) < (y) ? (x) : (y))
 # define CLAMP_255(x) (unsigned char)((x) < 0 ? 0 : ((x) > 255 ? 255 : (x)))
 # define v3(x, y, z)  (t_vec3){x, y, z}
+# define v2(x, y)   (t_vec2){x, y}
 
 typedef struct	s_vec2
 {
@@ -49,10 +50,10 @@ typedef struct	s_cnum
 	double i;
 }				t_cnum;
 
+typedef double  t_matrix2[4];
 typedef double	t_matrix3[9];
 typedef double	t_matrix4[16];
 
-t_vec2			v2_create(double x, double y);
 t_vec2			v2_add(t_vec2 a, t_vec2 b);
 t_vec2			v2_sub(t_vec2 a, t_vec2 b);
 int				v2_mult_by_scalar(t_vec2 *a, double c);
@@ -60,6 +61,12 @@ int				v2_div_by_scalar(t_vec2 *a, double c);
 double			v2_dot_product(t_vec2 *a, t_vec2 *b);
 double			v2_magnitude(t_vec2 *a);
 t_vec2			v2_normalize(t_vec2 a);
+
+void            m2_fill_null(t_matrix2 m);
+void            m2_identity(t_matrix2 m);
+double          m2_det(t_matrix2 m);
+
+t_vec2  		m2_mult_v2(t_matrix2 m, t_vec2 v);
 
 t_vec3			v3_add(t_vec3 a, t_vec3 b);
 t_vec3			v3_sub(t_vec3 a, t_vec3 b);
