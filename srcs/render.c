@@ -59,6 +59,13 @@ void	fill_floor_ceil(int	*pixels)
 	}
 }
 
+void    print_cam(t_camera cam)
+{
+    printf("pos: (%f, %f)\n", cam.pos.x, cam.pos.y);
+    printf("dir: (%f, %f)\n", cam.dir.x, cam.dir.y);
+    printf("plane: (%f, %f)\n", cam.plane.x, cam.plane.y);
+}
+
 void	render(t_wolf3d *all)
 {
 	int 	x;
@@ -66,6 +73,9 @@ void	render(t_wolf3d *all)
 	int 	mapX;
 	int 	mapY;
 
+
+    ft_putendl("RENDER\n");
+    print_cam(all->cam);
 	fill_floor_ceil(all->image.pixels);
 	ray.origin = all->cam.pos;
 	x = -1;

@@ -27,7 +27,9 @@ SRC_FILES =		main.c	                    \
                 read_map.c                  \
                 wolf3d.c                    \
                 error.c                     \
-                render.c
+                render.c                    \
+                camera.c                    \
+                hooks.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 

@@ -16,6 +16,7 @@ SRC_FILES = vector2_part1.c \
             vector3_part1.c \
             vector3_part2.c \
             hvector.c       \
+            matrix2.c       \
             matrix3.c       \
             matrix4_part1.c \
             matrix4_part2.c \

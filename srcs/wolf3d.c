@@ -1,6 +1,7 @@
 #include "wolf3d.h"
 #include "mlx.h"
 #include "libft.h"
+#include "hooks.h"
 
 static int  init_wolf(t_wolf3d *all)
 {
@@ -15,6 +16,10 @@ static int  init_wolf(t_wolf3d *all)
 static void	run(t_wolf3d *all)
 {
 	render(all);
+    render(all);
+    render(all);
+    render(all);
+    mlx_hook(all->win, 2, 0, pressed_hook, all);
 	mlx_loop(all->mlx);
 }
 
@@ -27,7 +32,6 @@ int     wolf3d(char *file_name)
         ft_putendl("mlx inited");
         if (!read_map(file_name, &all.map, &all.cam))
         {
-            ft_putendl("All is fine");
 			all.cam.dir = v2(0, 1);
 			all.cam.plane = v2(0.66, 0);
 			run(&all);
