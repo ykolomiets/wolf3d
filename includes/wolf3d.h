@@ -26,5 +26,6 @@ typedef struct  s_wolf3d
 }               t_wolf3d;
 
 int     wolf3d(char *file_name);
+void	render(t_wolf3d *all);
 
 #endif

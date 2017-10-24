@@ -56,10 +56,10 @@ typedef double	t_matrix4[16];
 
 t_vec2			v2_add(t_vec2 a, t_vec2 b);
 t_vec2			v2_sub(t_vec2 a, t_vec2 b);
-int				v2_mult_by_scalar(t_vec2 *a, double c);
-int				v2_div_by_scalar(t_vec2 *a, double c);
-double			v2_dot_product(t_vec2 *a, t_vec2 *b);
-double			v2_magnitude(t_vec2 *a);
+t_vec2			v2_mult_by_scalar(t_vec2 a, double c);
+t_vec2			v2_div_by_scalar(t_vec2 a, double c);
+double			v2_dot_product(t_vec2 a, t_vec2 b);
+double			v2_magnitude(t_vec2 a);
 t_vec2			v2_normalize(t_vec2 a);
 
 void            m2_fill_null(t_matrix2 m);

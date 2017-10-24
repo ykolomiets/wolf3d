@@ -13,40 +13,40 @@
 #include "mathx.h"
 #include <math.h>
 
-int		v2_mult_by_scalar(t_vec2 *a, double c)
+t_vec2		v2_mult_by_scalar(t_vec2 a, double c)
 {
-	a->x *= c;
-	a->y *= c;
-	return (0);
+	a.x *= c;
+	a.y *= c;
+	return (a);
 }
 
-int		v2_div_by_scalar(t_vec2 *a, double c)
+t_vec2		v2_div_by_scalar(t_vec2 a, double c)
 {
 	if (fabs(c) < 0.00005)
-		return (1);
-	a->x *= c;
-	a->y *= c;
-	return (0);
+		return (a);
+	a.x *= c;
+	a.y *= c;
+	return (a);
 }
 
-double	v2_dot_product(t_vec2 *a, t_vec2 *b)
+double	v2_dot_product(t_vec2 a, t_vec2 b)
 {
 	double	res;
 
-	res = a->x * b->x + a->y * b->y;
+	res = a.x * b.x + a.y * b.y;
 	return (res);
 }
 
-double	v2_magnitude(t_vec2 *a)
+double	v2_magnitude(t_vec2 a)
 {
-	return (sqrtf(a->x * a->x + a->y * a->y));
+	return (sqrt(a.x * a.x + a.y * a.y));
 }
 
 t_vec2	v2_normalize(t_vec2 a)
 {
 	double	magnitude;
 
-	magnitude = v2_magnitude(&a);
+	magnitude = v2_magnitude(a);
 	if (fabs(magnitude) > 0.00005)
 	{
 		a.x /= magnitude;

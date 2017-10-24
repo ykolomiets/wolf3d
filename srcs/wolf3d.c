@@ -12,6 +12,12 @@ static int  init_wolf(t_wolf3d *all)
     return (0);
 }
 
+static void	run(t_wolf3d *all)
+{
+	render(all);
+	mlx_loop(all->mlx);
+}
+
 int     wolf3d(char *file_name)
 {
     t_wolf3d    all;
@@ -22,10 +28,11 @@ int     wolf3d(char *file_name)
         if (!read_map(file_name, &all.map, &all.cam))
         {
             ft_putendl("All is fine");
+			all.cam.dir = v2(0, 1);
+			all.cam.plane = v2(0.66, 0);
+			run(&all);
             return (0);
         }
-        return (1);
-            //run_game(&all);
     }
     return (1);
 }
