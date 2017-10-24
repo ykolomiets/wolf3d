@@ -1,0 +1,9 @@
+libft/obj/
+obj/
+.idea
+*.o
+cmake-build-debug/
+CMakeLists.txt
+*.a
+*.out
+wolf3d
