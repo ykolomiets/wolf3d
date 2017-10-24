@@ -22,7 +22,11 @@ LIBFT =         libft.a
 LIBMATHX =      libmathx.a
 LIBMLX =        libmlx.a
 
-SRC_FILES =		main.c			
+SRC_FILES =		main.c	                    \
+                matrix_transformations.c    \
+                read_map.c                  \
+                wolf3d.c                    \
+                error.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 

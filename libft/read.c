@@ -41,7 +41,7 @@ char	*read_file(int fd)
 	length = 0;
 	buf_size = 16;
 	buf = malloc(sizeof(char) * buf_size);
-	while ((readed = read(fd, buf + length, buf_size - length)))
+	while ((readed = read(fd, buf + length, buf_size - length)) > 0)
 	{
 		length += readed;
 		if (length == buf_size)
