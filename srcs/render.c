@@ -73,8 +73,8 @@ void	render(t_wolf3d *all)
 	while(++x < WIDTH)
 	{
 		double planeCoord = 2 * x / (double)WIDTH - 1;
-		ray.dir = v2(all->hero.dir.x - 0.66 * all->hero.dir.y * planeCoord / all->hero.zoom ,
-					 all->hero.dir.y + 0.66 * all->hero.dir.x * planeCoord / all->hero.zoom );
+		ray.dir = v2(all->hero.dir.x - 0.66 * all->hero.dir.y * planeCoord ,
+					 all->hero.dir.y + 0.66 * all->hero.dir.x * planeCoord );
 		mapX = (int)ray.origin.x;
 		mapY = (int)ray.origin.y;
 

@@ -30,7 +30,6 @@ int     wolf3d(char *file_name)
         if (!read_map(file_name, &all.map, &all.hero))
         {
 			all.hero.dir = v2(0, 1);
-            all.hero.zoom = 1;
             all.hero.speed = DEFAULT;
 			run(&all);
             return (0);

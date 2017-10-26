@@ -9,7 +9,5 @@ void			hero_move_forward(t_hero *hero, t_map *map);
 void			hero_move_backward(t_hero *hero, t_map *map);
 void			hero_move_left(t_hero *hero, t_map *map);
 void			hero_move_right(t_hero *hero, t_map *map);
-void			hero_zoom_in(t_hero *hero);
-void			hero_zoom_out(t_hero *hero);
 
 #endif

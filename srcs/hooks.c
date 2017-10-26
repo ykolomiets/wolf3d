@@ -20,10 +20,6 @@ int		pressed_hook(int keycode, t_wolf3d *all)
         hero_move_left(&all->hero, &all->map);
     else if (keycode == 2)
         hero_move_right(&all->hero, &all->map);
-    else if (keycode == 125)
-        hero_zoom_in(&all->hero);
-    else if (keycode == 126)
-        hero_zoom_out(&all->hero);
     render(all);
     return (0);
 }

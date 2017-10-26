@@ -32,7 +32,6 @@ typedef struct	s_hero
 	t_vec2	pos;
 	t_vec2	dir;
 	int 	speed;
-	double 	zoom;
 }				t_hero;
 
 typedef struct  s_wolf3d

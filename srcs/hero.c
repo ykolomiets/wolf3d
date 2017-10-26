@@ -18,9 +18,13 @@ void            hero_rotate_left(t_hero *hero)
     };
 
     if (hero->speed == BOOST)
-        hero->dir = m2_mult_v2(rotation_matrix_2x, hero->dir);
+	{
+		hero->dir = m2_mult_v2(rotation_matrix_2x, hero->dir);
+	}
     else
-        hero->dir = m2_mult_v2(rotation_matrix, hero->dir);
+	{
+		hero->dir = m2_mult_v2(rotation_matrix, hero->dir);
+	}
 }
 
 void            hero_rotate_right(t_hero *hero)
@@ -39,9 +43,13 @@ void            hero_rotate_right(t_hero *hero)
     };
 
     if (hero->speed == BOOST)
-        hero->dir = m2_mult_v2(rotation_matrix_2x, hero->dir);
+	{
+		hero->dir = m2_mult_v2(rotation_matrix_2x, hero->dir);
+	}
     else
-        hero->dir = m2_mult_v2(rotation_matrix, hero->dir);
+	{
+		hero->dir = m2_mult_v2(rotation_matrix, hero->dir);
+	}
 }
 
 void            hero_move_forward(t_hero *hero, t_map *map)
@@ -90,18 +98,4 @@ void            hero_move_right(t_hero *hero, t_map *map)
 		[(int)(hero->pos.x)]
 		[(int)(hero->pos.y + hero->dir.x * MOVE_SPEED * hero->speed)] == 0)
 		hero->pos.y += hero->dir.x * MOVE_SPEED * hero->speed;
-}
-
-void            hero_zoom_in(t_hero *hero)
-{
-    hero->zoom += 0.1;
-    if (hero->zoom > 2)
-        hero->zoom = 2;
-}
-
-void            hero_zoom_out(t_hero *hero)
-{
-    hero->zoom -= 0.1;
-    if (hero->zoom < 1)
-        hero->zoom = 1;
 }
