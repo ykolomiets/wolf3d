@@ -15,9 +15,6 @@ static int  init_wolf(t_wolf3d *all)
 
 static void	run(t_wolf3d *all)
 {
-	render(all);
-    render(all);
-    render(all);
     render(all);
     mlx_hook(all->win, 2, 0, pressed_hook, all);
 	mlx_loop(all->mlx);

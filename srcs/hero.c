@@ -44,28 +44,52 @@ void            hero_rotate_right(t_hero *hero)
         hero->dir = m2_mult_v2(rotation_matrix, hero->dir);
 }
 
-void            hero_move_forward(t_hero *hero)
+void            hero_move_forward(t_hero *hero, t_map *map)
 {
-    hero->pos.x += hero->dir.x * MOVE_SPEED * hero->speed;
-    hero->pos.y += hero->dir.y * MOVE_SPEED * hero->speed;
+	if (map->walls
+		[(int)(hero->pos.x + hero->dir.x * MOVE_SPEED * hero->speed)]
+		[(int)(hero->pos.y)] == 0)
+    	hero->pos.x += hero->dir.x * MOVE_SPEED * hero->speed;
+	if (map->walls
+		[(int)(hero->pos.x)]
+		[(int)(hero->pos.y + hero->dir.y * MOVE_SPEED * hero->speed)] == 0)
+		hero->pos.y += hero->dir.y * MOVE_SPEED * hero->speed;
 }
 
-void            hero_move_backward(t_hero *hero)
+void            hero_move_backward(t_hero *hero, t_map *map)
 {
-    hero->pos.x -= hero->dir.x * MOVE_SPEED * hero->speed;
-    hero->pos.y -= hero->dir.y * MOVE_SPEED * hero->speed;
+	if (map->walls
+		[(int)(hero->pos.x - hero->dir.x * MOVE_SPEED * hero->speed)]
+		[(int)(hero->pos.y)] == 0)
+		hero->pos.x -= hero->dir.x * MOVE_SPEED * hero->speed;
+	if (map->walls
+		[(int)(hero->pos.x)]
+		[(int)(hero->pos.y - hero->dir.y * MOVE_SPEED * hero->speed)] == 0)
+		hero->pos.y -= hero->dir.y * MOVE_SPEED * hero->speed;
 }
 
-void            hero_move_left(t_hero *hero)
+void            hero_move_left(t_hero *hero, t_map *map)
 {
-	hero->pos.x += hero->dir.y * MOVE_SPEED * hero->speed;
-	hero->pos.y -= hero->dir.x * MOVE_SPEED * hero->speed;
+	if (map->walls
+		[(int)(hero->pos.x + hero->dir.y * MOVE_SPEED * hero->speed)]
+		[(int)(hero->pos.y)] == 0)
+		hero->pos.x += hero->dir.y * MOVE_SPEED * hero->speed;
+	if (map->walls
+		[(int)(hero->pos.x)]
+		[(int)(hero->pos.y - hero->dir.x * MOVE_SPEED * hero->speed)] == 0)
+		hero->pos.y -= hero->dir.x * MOVE_SPEED * hero->speed;
 }
 
-void            hero_move_right(t_hero *hero)
+void            hero_move_right(t_hero *hero, t_map *map)
 {
-	hero->pos.x -= hero->dir.y * MOVE_SPEED * hero->speed;
-	hero->pos.y += hero->dir.x * MOVE_SPEED * hero->speed;
+	if (map->walls
+		[(int)(hero->pos.x - hero->dir.y * MOVE_SPEED * hero->speed)]
+		[(int)(hero->pos.y)] == 0)
+		hero->pos.x -= hero->dir.y * MOVE_SPEED * hero->speed;
+	if (map->walls
+		[(int)(hero->pos.x)]
+		[(int)(hero->pos.y + hero->dir.x * MOVE_SPEED * hero->speed)] == 0)
+		hero->pos.y += hero->dir.x * MOVE_SPEED * hero->speed;
 }
 
 void            hero_zoom_in(t_hero *hero)

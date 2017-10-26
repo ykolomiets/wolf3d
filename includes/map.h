@@ -1,14 +1,7 @@
 #ifndef MAP_H
 # define MAP_H
 
-# include "hero.h"
-
-typedef struct  s_map
-{
-    int     rows;
-    int     cols;
-    int     **walls;
-}               t_map;
+# include "wolf3d.h"
 
 int             read_map(char *file, t_map *map, t_hero *hero);
 
