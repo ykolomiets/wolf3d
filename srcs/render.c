@@ -59,13 +59,6 @@ void	fill_floor_ceil(int	*pixels)
 	}
 }
 
-void    print_cam(t_camera cam)
-{
-    printf("pos: (%f, %f)\n", cam.pos.x, cam.pos.y);
-    printf("dir: (%f, %f)\n", cam.dir.x, cam.dir.y);
-    printf("plane: (%f, %f)\n", cam.plane.x, cam.plane.y);
-}
-
 void	render(t_wolf3d *all)
 {
 	int 	x;
@@ -74,15 +67,14 @@ void	render(t_wolf3d *all)
 	int 	mapY;
 
 
-    ft_putendl("RENDER\n");
-    print_cam(all->cam);
 	fill_floor_ceil(all->image.pixels);
-	ray.origin = all->cam.pos;
+	ray.origin = all->hero.pos;
 	x = -1;
 	while(++x < WIDTH)
 	{
 		double planeCoord = 2 * x / (double)WIDTH - 1;
-		ray.dir = v2_add(all->cam.dir, v2_mult_by_scalar(all->cam.plane, planeCoord));
+		ray.dir = v2(all->hero.dir.x - 0.66 * all->hero.dir.y * all->hero.zoom * planeCoord,
+					 all->hero.dir.y + 0.66 * all->hero.dir.x * all->hero.zoom * planeCoord);
 		mapX = (int)ray.origin.x;
 		mapY = (int)ray.origin.y;
 

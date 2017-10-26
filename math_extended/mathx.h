@@ -20,8 +20,8 @@
 # define MAX(x, y) ((x) < (y) ? (y) : (x))
 # define MIN(x, y) ((x) < (y) ? (x) : (y))
 # define CLAMP_255(x) (unsigned char)((x) < 0 ? 0 : ((x) > 255 ? 255 : (x)))
-# define v3(x, y, z)  (t_vec3){x, y, z}
-# define v2(x, y)   (t_vec2){x, y}
+# define v3(x, y, z) (t_vec3){x, y, z}
+# define v2(x, y)	 (t_vec2){x, y}
 
 typedef struct	s_vec2
 {

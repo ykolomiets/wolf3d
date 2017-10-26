@@ -30,10 +30,11 @@ int     wolf3d(char *file_name)
     if (!init_wolf(&all))
     {
         ft_putendl("mlx inited");
-        if (!read_map(file_name, &all.map, &all.cam))
+        if (!read_map(file_name, &all.map, &all.hero))
         {
-			all.cam.dir = v2(0, 1);
-			all.cam.plane = v2(0.66, 0);
+			all.hero.dir = v2(0, 1);
+            all.hero.zoom = 1;
+            all.hero.speed = DEFAULT;
 			run(&all);
             return (0);
         }

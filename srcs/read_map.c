@@ -78,15 +78,15 @@ static int      check_full_map(t_map *map)
     return (0);
 }
 
-static int		fill_map(t_map *map, char **table, t_camera *cam)
+static int		fill_map(t_map *map, char **table, t_hero *hero)
 {
     int		i;
     int		j;
-    int     cam_pos;
+    int     hero_pos;
     char    **temp;
 
     i = -1;
-    cam_pos = 0;
+    hero_pos = 0;
     while (++i < map->rows)
     {
         j = -1;
@@ -95,10 +95,10 @@ static int		fill_map(t_map *map, char **table, t_camera *cam)
         {
             if (check_and_fill(&map->walls[i][j], temp[j]))
 			{
-                if (cam_pos == 0)
+                if (hero_pos == 0)
                 {
-                    cam_pos = 1;
-                    cam->pos = v2(i + 0.5, j + 0.5);
+                    hero_pos = 1;
+                    hero->pos = v2(i + 0.5, j + 0.5);
                 }
                 else
 					put_error(1);
@@ -106,13 +106,13 @@ static int		fill_map(t_map *map, char **table, t_camera *cam)
         }
         ft_free_table(&temp, map->cols);
     }
-	if (cam_pos == 0)
+	if (hero_pos == 0)
 		put_error(2);
 	check_full_map(map);
     return (0);
 }
 
-int				read_map(char *map_file, t_map *map, t_camera *cam)
+int				read_map(char *map_file, t_map *map, t_hero *hero)
 {
     int     fd;
     char    **splited;
@@ -121,7 +121,7 @@ int				read_map(char *map_file, t_map *map, t_camera *cam)
     if (fd != -1) {
         map->walls = malloc_map(fd, &splited, &map->rows, &map->cols);
 		printf("Map allocated with size: (%d, %d)", map->rows, map->cols);
-        if (!map->walls || fill_map(map, splited, cam))
+        if (!map->walls || fill_map(map, splited, hero))
             exit(1);
         ft_free_table(&splited, map->rows);
         close(fd);

@@ -1,7 +1,7 @@
 #ifndef MAP_H
 # define MAP_H
 
-# include "camera.h"
+# include "hero.h"
 
 typedef struct  s_map
 {
@@ -10,6 +10,6 @@ typedef struct  s_map
     int     **walls;
 }               t_map;
 
-int             read_map(char *file, t_map *map, t_camera *cam);
+int             read_map(char *file, t_map *map, t_hero *hero);
 
 #endif

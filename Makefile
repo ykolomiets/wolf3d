@@ -23,12 +23,11 @@ LIBMATHX =      libmathx.a
 LIBMLX =        libmlx.a
 
 SRC_FILES =		main.c	                    \
-                matrix_transformations.c    \
                 read_map.c                  \
                 wolf3d.c                    \
                 error.c                     \
                 render.c                    \
-                camera.c                    \
+                hero.c                    \
                 hooks.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
