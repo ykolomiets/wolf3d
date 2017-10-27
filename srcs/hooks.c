@@ -18,6 +18,22 @@ int		pressed_hook(int keycode, t_wolf3d *all)
         hero_move_left(&all->hero, &all->map);
     else if (keycode == 2)
         hero_move_right(&all->hero, &all->map);
+    else if (keycode == 257)
+        all->hero.speed = BOOST;
     render(all);
     return (0);
+}
+
+int		released_hook(int keycode, t_wolf3d *all)
+{
+    if (keycode == 257)
+        all->hero.speed = DEFAULT;
+    return (0);
+}
+
+int 	exit_x(t_wolf3d *all)
+{
+	(void)all;
+
+	exit(0);
 }
