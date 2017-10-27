@@ -25,11 +25,11 @@ void	assign_step_and_sideDist(t_rchelp *rc)
 	}
 }
 
-void	prepare_ray_casting(t_rchelp *rc, int x, t_hero *hero)
+void	prepare_ray_casting(t_rchelp *rc, t_hero *hero)
 {
 	double planeCoord;
 
-	planeCoord = 2 * x / (double)WIDTH - 1;
+	planeCoord = 2 * rc->x / (double)WIDTH - 1;
 	rc->ray.origin = hero->pos;
 	rc->ray.dir = v2(hero->dir.x - 0.66 * hero->dir.y * planeCoord ,
 					 hero->dir.y + 0.66 * hero->dir.x * planeCoord );
@@ -61,7 +61,10 @@ int	ray_casting(t_rchelp *rc, t_map *map)
 			side = 1;
 		}
 		if (map->walls[rc->mapX][rc->mapY] > 0)
+		{
+			rc->tex_num = map->walls[rc->mapX][rc->mapY] - 1;
 			break;
+		}
 	}
 	return (side);
 }

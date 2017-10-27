@@ -2,6 +2,31 @@
 #include "mlx.h"
 #include "libft.h"
 #include "hooks.h"
+#include <stdio.h>
+
+void		textures_loading(t_texture *textures, void *mlx)
+{
+	static char	*file_names[] = {"xpm_textures/greystone.xpm",
+									"xpm_textures/mossy.xpm",
+									"xpm_textures/redbrick.xpm",
+									"xpm_textures/eagle.xpm",
+									"xpm_textures/colorstone.xpm"};
+	int 		i;
+
+	i = -1;
+	while (++i < 5)
+	{
+		textures[i].image.image = mlx_xpm_file_to_image(mlx,
+														file_names[i],
+														&textures[i].width,
+														&textures[i].height);
+		textures[i].image.pixels =
+				(int *)mlx_get_data_addr(textures[i].image.image,
+										 &textures[i].image.bpp,
+										 &textures[i].image.sl,
+										 &textures[i].image.endian);
+	}
+}
 
 static int  init_wolf(t_wolf3d *all)
 {
@@ -10,6 +35,8 @@ static int  init_wolf(t_wolf3d *all)
     all->image.image = mlx_new_image(all->mlx, WIDTH, HEIGHT);
     all->image.pixels = (int *)mlx_get_data_addr(all->image.image, &all->image.bpp,
     &all->image.sl, &all->image.endian);
+	textures_loading(all->textures, all->mlx);
+	all->textures_enabled = NO;
     return (0);
 }
 
@@ -28,7 +55,6 @@ int     wolf3d(char *file_name)
 
     if (!init_wolf(&all))
     {
-        ft_putendl("mlx inited");
         if (!read_map(file_name, &all.map, &all.hero))
         {
 			all.hero.dir = v2(0, 1);

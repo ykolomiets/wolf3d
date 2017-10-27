@@ -11,6 +11,9 @@
 # define BOOST			2
 # define DEFAULT		1
 
+# define YES			1
+# define NO				0
+
 
 typedef struct  s_image
 {
@@ -20,6 +23,13 @@ typedef struct  s_image
     int         sl;
     int         endian;
 }               t_image;
+
+typedef	struct	s_texture
+{
+	t_image		image;
+	int			width;
+	int			height;
+}				t_texture;
 
 typedef struct  s_map
 {
@@ -42,6 +52,8 @@ typedef struct  s_wolf3d
     t_image     image;
     t_hero		hero;
     t_map       map;
+	t_texture	textures[5];
+	int			textures_enabled;
 }               t_wolf3d;
 
 typedef struct	s_param
@@ -64,6 +76,7 @@ typedef struct	s_line
 
 typedef struct	s_rchelp
 {
+	int			x;
 	t_ray		ray;
 	t_vec2		sideDist;
 	t_vec2		deltaDist;
@@ -71,17 +84,21 @@ typedef struct	s_rchelp
 	int			stepY;
 	int			mapX;
 	int 		mapY;
+	int			tex_num;
+	double		wall_x;
+	int			line_height;
+	int			start_y;
+	int 		end_y;
 }				t_rchelp;
 
 int     		wolf3d(char *file_name);
 int             read_map(char *file, t_map *map, t_hero *hero);
 void			render(t_wolf3d *all);
-int				read_map(char *map_file, t_map *map, t_hero *hero);
 int				ray_casting(t_rchelp *rc, t_map *map);
-void			prepare_ray_casting(t_rchelp *rc, int x, t_hero *hero);
+void			prepare_ray_casting(t_rchelp *rc, t_hero *hero);
 void			assign_step_and_sideDist(t_rchelp *rc);
 void			fill_floor_ceil(int	*pixels);
-void			draw_wall(t_rchelp *rc, int x, int side, int *pixels);
+void			draw_wall(t_rchelp *rc, int side, t_wolf3d *all);
 void 			put_error(int error_code);
 
 #endif

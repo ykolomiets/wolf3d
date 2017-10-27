@@ -1,9 +1,11 @@
 #include "hooks.h"
 #include "hero.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 int		pressed_hook(int keycode, t_wolf3d *all)
 {
+	printf("keycode: %d\n", keycode);
     if (keycode == 53)
         exit(0);
     else if (keycode == 13 || keycode == 126)
@@ -20,6 +22,8 @@ int		pressed_hook(int keycode, t_wolf3d *all)
         hero_move_right(&all->hero, &all->map);
     else if (keycode == 257)
         all->hero.speed = BOOST;
+	else if (keycode == 17)
+		all->textures_enabled = all->textures_enabled ? NO : YES;
     render(all);
     return (0);
 }

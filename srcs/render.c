@@ -14,9 +14,10 @@ void	*render_part(void *param)
 	i = p->thread_num;
 	while (i < WIDTH)
 	{
-		prepare_ray_casting(&rc, i, &p->all->hero);
+		rc.x = i;
+		prepare_ray_casting(&rc, &p->all->hero);
 		side = ray_casting(&rc, &p->all->map);
-		draw_wall(&rc, i, side, p->all->image.pixels);
+		draw_wall(&rc, side, p->all);
 		i += NUM_THREADS;
 	}
 	pthread_exit(NULL);
