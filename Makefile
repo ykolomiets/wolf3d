@@ -27,8 +27,11 @@ SRC_FILES =		main.c	                    \
                 wolf3d.c                    \
                 error.c                     \
                 render.c                    \
-                hero.c                    \
-                hooks.c
+                hero1.c                     \
+                hero2.c                     \
+                hooks.c                     \
+                rasterization.c             \
+                ray_casting.c               \
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 

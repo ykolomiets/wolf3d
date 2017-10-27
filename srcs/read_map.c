@@ -1,10 +1,8 @@
-#include "map.h"
-#include "error.h"
+#include "wolf3d.h"
 #include "libft.h"
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <stdio.h>
 
 static int	**malloc_map(int fd, char ***splited, int *rows, int *cols)
 {
@@ -31,7 +29,7 @@ static int	**malloc_map(int fd, char ***splited, int *rows, int *cols)
     return (walls ? walls : 0);
 }
 
-static int      check_and_fill(int *wall, char *str)
+static int      check_and_fill(int *wall, char *str, int *hero_pos)
 {
     size_t  i;
     size_t  len;
@@ -45,8 +43,12 @@ static int      check_and_fill(int *wall, char *str)
         {
             if (len == 1 && str[i] == 'X')
             {
-                *wall = 0;
-                return (1);
+				if (*hero_pos)
+					put_error(2);
+				else
+					*hero_pos = 1;
+				*wall = 0;
+				return (1);
             }
             else
 				put_error(1);
@@ -82,31 +84,21 @@ static int		fill_map(t_map *map, char **table, t_hero *hero)
 {
     int		i;
     int		j;
-    int     hero_pos;
     char    **temp;
+	int 	hero_pos;
 
+	hero_pos = 0;
     i = -1;
-    hero_pos = 0;
     while (++i < map->rows)
     {
         j = -1;
         temp = ft_strsplit(table[i], ' ');
         while (++j < map->cols)
-        {
-            if (check_and_fill(&map->walls[i][j], temp[j]))
-			{
-                if (hero_pos == 0)
-                {
-                    hero_pos = 1;
-                    hero->pos = v2(i + 0.5, j + 0.5);
-                }
-                else
-					put_error(1);
-            }
-        }
+			if (check_and_fill(&map->walls[i][j], temp[j], &hero_pos) == 1)
+				hero->pos = v2(j + 0.5, i + 0.5);
         ft_free_table(&temp, map->cols);
     }
-	if (hero_pos == 0)
+	if (hero->pos.x == -1 && hero->pos.y == -1)
 		put_error(2);
 	check_full_map(map);
     return (0);
@@ -120,7 +112,6 @@ int				read_map(char *map_file, t_map *map, t_hero *hero)
     fd = open(map_file, O_RDONLY);
     if (fd != -1) {
         map->walls = malloc_map(fd, &splited, &map->rows, &map->cols);
-		printf("Map allocated with size: (%d, %d)", map->rows, map->cols);
         if (!map->walls || fill_map(map, splited, hero))
             exit(1);
         ft_free_table(&splited, map->rows);

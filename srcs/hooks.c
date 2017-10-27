@@ -1,20 +1,18 @@
 #include "hooks.h"
-#include <stdio.h>
 #include "hero.h"
 #include <stdlib.h>
 
 int		pressed_hook(int keycode, t_wolf3d *all)
 {
-    printf("keycode: %d\n", keycode);
     if (keycode == 53)
         exit(0);
-    else if (keycode == 13)
+    else if (keycode == 13 || keycode == 126)
         hero_move_forward(&all->hero, &all->map);
-    else if (keycode == 1)
+    else if (keycode == 1 || keycode == 125)
         hero_move_backward(&all->hero, &all->map);
-    else if (keycode == 12)
+    else if (keycode == 14 || keycode == 124)
         hero_rotate_right(&all->hero);
-    else if (keycode == 14)
+    else if (keycode == 12|| keycode == 123)
         hero_rotate_left(&all->hero);
     else if (keycode == 0)
         hero_move_left(&all->hero, &all->map);

@@ -2,10 +2,9 @@
 # define WOLF3D_H
 
 # include "mathx.h"
-# include "ray_casting.h"
 
-# define WIDTH			1024
-# define HEIGHT			768
+# define WIDTH			1600
+# define HEIGHT			900
 # define NUM_THREADS	8
 
 # define MOVE_SPEED		0.03
@@ -51,6 +50,18 @@ typedef struct	s_param
 	t_wolf3d		*all;
 }				t_param;
 
+typedef struct  s_ray
+{
+	t_vec2      origin;
+	t_vec2      dir;
+}               t_ray;
+
+typedef struct	s_line
+{
+	t_vec2		p1;
+	t_vec2		p2;
+}				t_line;
+
 typedef struct	s_rchelp
 {
 	t_ray		ray;
@@ -62,9 +73,15 @@ typedef struct	s_rchelp
 	int 		mapY;
 }				t_rchelp;
 
-int     wolf3d(char *file_name);
-void	render(t_wolf3d *all);
-int		read_map(char *map_file, t_map *map, t_hero *hero);
-
+int     		wolf3d(char *file_name);
+int             read_map(char *file, t_map *map, t_hero *hero);
+void			render(t_wolf3d *all);
+int				read_map(char *map_file, t_map *map, t_hero *hero);
+int				ray_casting(t_rchelp *rc, t_map *map);
+void			prepare_ray_casting(t_rchelp *rc, int x, t_hero *hero);
+void			assign_step_and_sideDist(t_rchelp *rc);
+void			fill_floor_ceil(int	*pixels);
+void			draw_wall(t_rchelp *rc, int x, int side, int *pixels);
+void 			put_error(int error_code);
 
 #endif

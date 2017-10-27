@@ -1,4 +1,4 @@
-#include "error.h"
+#include "wolf3d.h"
 #include <stdlib.h>
 #include "libft.h"
 
