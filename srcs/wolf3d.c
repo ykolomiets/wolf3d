@@ -50,6 +50,20 @@ static void	run(t_wolf3d *all)
 	mlx_loop(all->mlx);
 }
 
+void	print_map(t_map *map)
+{
+	printf("MAP %d x %d\n", map->rows, map->cols);
+	for (int i = 0; i < map->rows; i++)
+	{
+		for (int j = 0; j < map->cols; j++)
+		{
+			printf("%d ", map->walls[i][j]);
+		}
+		printf("\n");
+	}
+	printf("-------------------\n");
+}
+
 int     wolf3d(char *file_name)
 {
     t_wolf3d    all;
@@ -58,7 +72,9 @@ int     wolf3d(char *file_name)
     {
         if (!read_map(file_name, &all.map, &all.hero))
         {
+			print_map(&all.map);
 			all.hero.dir = v2(0, 1);
+			printf("hero.pos = (%f, %f), dir = (%f, %f)\n", all.hero.pos.x, all.hero.pos.y, all.hero.dir.x, all.hero.dir.y);
             all.hero.speed = DEFAULT;
 			run(&all);
             return (0);

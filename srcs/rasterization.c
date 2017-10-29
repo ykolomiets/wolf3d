@@ -87,10 +87,14 @@ void	textured_wall(int side, t_rchelp *rc, t_wolf3d *all)
 		tex_x = texture->width - tex_x - 1;
 	else if (side == 1 && rc->ray.dir.y < 0)
 		tex_x = texture->width - tex_x - 1;
+	if (tex_x < 0 || tex_x >63)
+		printf("TEX_X: %d\n", tex_x);
 	while (rc->start_y < rc->end_y)
 	{
-		d = rc->start_y * 256 - HEIGHT * 128 + rc->line_height * 128;
-		tex_y = ((d * texture->height) / rc->line_height) / 256;
+		d = rc->start_y * 2 - HEIGHT * 1 + rc->line_height * 1;
+		tex_y = ((d * texture->height) / rc->line_height) / 2;
+		if (tex_y < 0 || tex_y > 63)
+			printf("tex_y: %d\n", tex_y);
 		color = texture->image.pixels[texture->width * tex_y + tex_x];
 		if (side == 1)
 			color = (color >> 1) & 0x7F7F7F;

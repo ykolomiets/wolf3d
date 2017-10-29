@@ -31,8 +31,8 @@ void	prepare_ray_casting(t_rchelp *rc, t_hero *hero)
 
 	planeCoord = 2 * rc->x / (double)WIDTH - 1;
 	rc->ray.origin = hero->pos;
-	rc->ray.dir = v2(hero->dir.x - 0.66 * hero->dir.y * planeCoord ,
-					 hero->dir.y + 0.66 * hero->dir.x * planeCoord );
+	rc->ray.dir = v2(hero->dir.x - 0.66 * hero->dir.y * planeCoord,
+					 hero->dir.y + 0.66 * hero->dir.x * planeCoord);
 	rc->mapX = (int)rc->ray.origin.x;
 	rc->mapY = (int)rc->ray.origin.y;
 	rc->deltaDist.x = sqrt(1 + (rc->ray.dir.y * rc->ray.dir.y) /
@@ -60,9 +60,9 @@ int	ray_casting(t_rchelp *rc, t_map *map)
 			rc->mapY += rc->stepY;
 			side = 1;
 		}
-		if (map->walls[rc->mapX][rc->mapY] > 0)
+		if (map->walls[rc->mapY][rc->mapX] > 0)
 		{
-			rc->tex_num = map->walls[rc->mapX][rc->mapY] - 1;
+			rc->tex_num = map->walls[rc->mapY][rc->mapX] - 1;
 			break;
 		}
 	}
