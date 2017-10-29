@@ -45,15 +45,27 @@ typedef struct	s_hero
 	int 	speed;
 }				t_hero;
 
+typedef struct	s_action_set
+{
+	int			move_forward;
+	int			move_backward;
+	int			move_right;
+	int			move_left;
+	int			rotate_right;
+	int 		rotate_left;
+}				t_action_set;
+
 typedef struct  s_wolf3d
 {
-    void        *mlx;
-    void        *win;
-    t_image     image;
-    t_hero		hero;
-    t_map       map;
-	t_texture	textures[5];
-	int			textures_enabled;
+    void        	*mlx;
+    void        	*win;
+    t_image     	image;
+    t_hero			hero;
+    t_map       	map;
+	t_texture		textures[5];
+	int				textures_enabled;
+	t_action_set	actions;
+
 }               t_wolf3d;
 
 typedef struct	s_param

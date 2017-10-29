@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <stdio.h>
 
 static int	**malloc_map(int fd, char ***splited, int *rows, int *cols)
 {
@@ -113,7 +112,6 @@ int				read_map(char *map_file, t_map *map, t_hero *hero)
     fd = open(map_file, O_RDONLY);
     if (fd != -1) {
         map->walls = malloc_map(fd, &splited, &map->rows, &map->cols);
-		printf("map (%d, %d)\n", map->rows, map->cols);
 		hero->pos = v2(-1, -1);
         if (!map->walls || fill_map(map, splited, hero))
             exit(1);

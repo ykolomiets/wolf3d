@@ -37,15 +37,16 @@ static int  init_wolf(t_wolf3d *all)
     &all->image.sl, &all->image.endian);
 	textures_loading(all->textures, all->mlx);
 	all->textures_enabled = NO;
+	all->actions = (t_action_set){NO, NO, NO, NO, NO, NO};
     return (0);
 }
 
 static void	run(t_wolf3d *all)
 {
-    render(all);
     mlx_hook(all->win, 2, 0, pressed_hook, all);
 	mlx_hook(all->win, 3, 0, released_hook, all);
 	mlx_hook(all->win, 17, 0, exit_x, all);
+	mlx_loop_hook(all->mlx, loop_hook, all);
 	mlx_loop(all->mlx);
 }
 

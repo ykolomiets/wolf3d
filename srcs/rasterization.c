@@ -1,4 +1,5 @@
 #include "wolf3d.h"
+#include <stdio.h>
 
 void			draw_line_dda(t_line *line, int *pixels, int color)
 {

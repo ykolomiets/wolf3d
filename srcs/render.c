@@ -1,6 +1,5 @@
 #include "wolf3d.h"
 #include "mlx.h"
-#include <math.h>
 #include <pthread.h>
 
 void	*render_part(void *param)

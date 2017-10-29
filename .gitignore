@@ -7,3 +7,5 @@ CMakeLists.txt
 *.a
 *.out
 wolf3d
+.*
+!.gitignore
