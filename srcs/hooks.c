@@ -49,7 +49,6 @@ int			pressed_hook(int keycode, t_wolf3d *all)
 
 int			released_hook(int keycode, t_wolf3d *all)
 {
-	printf("keycode = %d\n", keycode);
 	if (keycode == 13 || keycode == 126)
 		all->actions.move_forward = NO;
 	else if (keycode == 1 || keycode == 125)
@@ -65,7 +64,10 @@ int			released_hook(int keycode, t_wolf3d *all)
 	else if (keycode == 257)
 		all->hero.speed = DEFAULT;
 	else if (keycode == 53)
+	{
+		music_off();
 		exit(0);
+	}
 	else if (keycode == 17)
 		all->textures_enabled = all->textures_enabled ? NO : YES;
 	else if (keycode == 48)
@@ -95,5 +97,6 @@ int			exit_x(t_wolf3d *all)
 {
 	(void)all;
 
+	music_off();
 	exit(0);
 }

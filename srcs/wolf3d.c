@@ -5,13 +5,13 @@
 
 void		textures_loading(t_texture *textures, void *mlx)
 {
-	static char	*file_names[TEXTURES_NUM] = {"xpm_textures/bluestone.xpm",
-												"xpm_textures/eagle.xpm",
-												"xpm_textures/greystone.xpm",
-												"xpm_textures/mossy.xpm",
-												"xpm_textures/redbrick.xpm",
-												"xpm_textures/wood.xpm",
-												"xpm_textures/colorstone.xpm"
+	static char	*file_names[TEXTURES_NUM] = {"resources/xpm_textures/bluestone.xpm",
+												"resources/xpm_textures/eagle.xpm",
+												"resources/xpm_textures/greystone.xpm",
+												"resources/xpm_textures/mossy.xpm",
+												"resources/xpm_textures/redbrick.xpm",
+												"resources/xpm_textures/wood.xpm",
+												"resources/xpm_textures/colorstone.xpm"
 	};
 	int 		i;
 
@@ -32,8 +32,8 @@ void		textures_loading(t_texture *textures, void *mlx)
 
 void		skyboxes_loading(t_texture *skyboxes, void *mlx)
 {
-	static char	*file_names[2] = {"xpm_textures/stars2.xpm",
-									 "xpm_textures/stars4.xpm",};
+	static char	*file_names[2] = {"resources/xpm_textures/stars1.xpm",
+									 "resources/xpm_textures/stars2.xpm",};
 	int 		i;
 
 	i = -1;
@@ -66,6 +66,7 @@ static int  init_wolf(t_wolf3d *all)
 	all->skybox_num = 0;
 	all->textures_enabled = NO;
 	all->actions = (t_action_set){NO, NO, NO, NO, NO, NO};
+	music_on();
     return (0);
 }
 

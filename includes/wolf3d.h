@@ -83,12 +83,6 @@ typedef struct  s_ray
 	t_vec2      dir;
 }               t_ray;
 
-typedef struct	s_line
-{
-	t_vec2		p1;
-	t_vec2		p2;
-}				t_line;
-
 typedef struct	s_rchelp
 {
 	int			x;
@@ -115,5 +109,7 @@ void			prepare_ray_casting(t_rchelp *rc, t_hero *hero);
 void			assign_step_and_sideDist(t_rchelp *rc);
 void			draw_wall(t_rchelp *rc, int side, t_wolf3d *all);
 void 			put_error(int error_code);
+void			music_on();
+void			music_off();
 
 #endif

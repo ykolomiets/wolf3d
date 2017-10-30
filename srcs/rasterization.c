@@ -1,6 +1,5 @@
 #include "wolf3d.h"
 #include <math.h>
-#include <stdio.h>
 
 void	default_wall(int side, t_rchelp *rc, t_wolf3d *all)
 {
