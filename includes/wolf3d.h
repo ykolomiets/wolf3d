@@ -16,6 +16,9 @@
 # define YES			1
 # define NO				0
 
+# define PUT_STR(y, str)	mlx_string_put(all->mlx, all->win, WIDTH / 2 - 152,\
+							HEIGHT / 2 - 120 + (y), 0xffffff, (str))
+
 
 typedef struct  s_image
 {
@@ -69,6 +72,7 @@ typedef struct  s_wolf3d
 	int				textures_enabled;
 	int 			skybox_num;
 	t_action_set	actions;
+	int				help_display;
 }               t_wolf3d;
 
 typedef struct	s_param

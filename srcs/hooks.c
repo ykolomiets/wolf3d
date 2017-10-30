@@ -49,6 +49,7 @@ int			pressed_hook(int keycode, t_wolf3d *all)
 
 int			released_hook(int keycode, t_wolf3d *all)
 {
+	printf("keycode: %d\n", keycode);
 	if (keycode == 13 || keycode == 126)
 		all->actions.move_forward = NO;
 	else if (keycode == 1 || keycode == 125)
@@ -72,6 +73,8 @@ int			released_hook(int keycode, t_wolf3d *all)
 		all->textures_enabled = all->textures_enabled ? NO : YES;
 	else if (keycode == 48)
 		all->skybox_num = (all->skybox_num + 1) % 2;
+	else if (keycode == 122)
+		all->help_display = all->help_display ? NO : YES;
 	return (0);
 }
 

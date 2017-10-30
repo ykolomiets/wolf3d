@@ -22,6 +22,25 @@ void	*render_part(void *param)
 	pthread_exit(NULL);
 }
 
+void	display_help(t_wolf3d *all)
+{
+	int i;
+
+	i = -1;
+	PUT_STR(++i * 18, "*----------- HELP -----------*");
+	PUT_STR(++i * 18, "|  W / (up) - move forward   |");
+	PUT_STR(++i * 18, "|  S / (down) - move back    |");
+	PUT_STR(++i * 18, "|  Q / (left) - rotate left  |");
+	PUT_STR(++i * 18, "| E / (right) - rotate right |");
+	PUT_STR(++i * 18, "|      A - move left         |");
+	PUT_STR(++i * 18, "|      D - move right        |");
+	PUT_STR(++i * 18, "|     Shift - speed up       |");
+	PUT_STR(++i * 18, "|             ****           |");
+	PUT_STR(++i * 18, "|    T - enable textures     |");
+	PUT_STR(++i * 18, "|    Tab - change skybox     |");
+	PUT_STR(++i * 18, "*----------------------------*");
+}
+
 void	render(t_wolf3d *all)
 {
 
@@ -45,4 +64,6 @@ void	render(t_wolf3d *all)
 	while (++i < NUM_THREADS)
 		pthread_join(threads[i], &res);
 	mlx_put_image_to_window(all->mlx, all->win, all->image.image, 0, 0);
+	if (all->help_display)
+		display_help(all);
 }
