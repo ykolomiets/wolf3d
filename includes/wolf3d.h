@@ -3,8 +3,8 @@
 
 # include "mathx.h"
 
-# define WIDTH			1600
-# define HEIGHT			900
+# define WIDTH			800
+# define HEIGHT			600
 # define NUM_THREADS	8
 
 # define MOVE_SPEED		0.03
