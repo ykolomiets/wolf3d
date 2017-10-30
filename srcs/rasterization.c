@@ -1,67 +1,10 @@
 #include "wolf3d.h"
-#include <stdio.h>
-
-void			draw_line_dda(t_line *line, int *pixels, int color)
-{
-	int		deltas[2];
-	int		steps;
-	int		k;
-	float	incs[2];
-	float	xy[2];
-
-	deltas[0] = ROUND(line->p2.x) - ROUND(line->p1.x);
-	deltas[1] = ROUND(line->p2.y) - ROUND(line->p1.y);
-	xy[0] = ROUND(line->p1.x);
-	xy[1] = ROUND(line->p1.y);
-	steps = ABS(deltas[0]) > ABS(deltas[1]) ? ABS(deltas[0]) : ABS(deltas[1]);
-	incs[0] = deltas[0] / (float)steps;
-	incs[1] = deltas[1] / (float)steps;
-	k = -1;
-	while (++k < steps)
-	{
-		if (IN_RANGE(ROUND(xy[1]), 0, HEIGHT - 1) &&
-			IN_RANGE(ROUND(xy[0]), 0, WIDTH - 1))
-			pixels[ROUND(xy[1]) * WIDTH + ROUND(xy[0])] = color;
-		xy[0] += incs[0];
-		xy[1] += incs[1];
-	}
-}
-
-void	fill_floor_ceil(int	*pixels)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (i < HEIGHT / 2)
-	{
-		j = 0;
-		while (j < WIDTH)
-		{
-			pixels[i * WIDTH + j] = 0x87CEFA;
-			j++;
-		}
-		i++;
-	}
-	while (i < HEIGHT)
-	{
-		j = 0;
-		while (j < WIDTH)
-		{
-			pixels[i * WIDTH + j] = 0x8B4513;
-			j++;
-		}
-		i++;
-	}
-}
 
 void	default_wall(int side, t_rchelp *rc, t_wolf3d *all)
 {
-	t_line	line;
 	int		color;
+	int 	i;
 
-	line.p1 = v2(rc->x, rc->start_y);
-	line.p2 = v2(rc->x, rc->end_y);
 	if (side == 1 && rc->ray.dir.y > 0)
 		color = 0xFF1493;
 	else if (side == 1)
@@ -70,7 +13,66 @@ void	default_wall(int side, t_rchelp *rc, t_wolf3d *all)
 		color = 0xFFA500;
 	else
 		color = 0x00ffff;
-	draw_line_dda(&line, all->image.pixels, color);
+	i = 0;
+	while (i < rc->start_y)
+		all->image.pixels[i++ * WIDTH + rc->x] = 0x87cefa;
+	while (i < rc->end_y)
+		all->image.pixels[i++ * WIDTH + rc->x] = color;
+	while (i < HEIGHT)
+		all->image.pixels[i++ * WIDTH + rc->x] = 0x8B4513;
+}
+
+t_vec2	floor_wall_init(int side, t_rchelp *rc)
+{
+	t_vec2	res;
+
+	if (side == 0 && rc->ray.dir.x > 0)
+	{
+		res.x = rc->mapX;
+		res.y = rc->mapY + rc->wall_x;
+	}
+	else if (side == 0 && rc->ray.dir.x < 0)
+	{
+		res.x = rc->mapX + 1.0;
+		res.y = rc->mapY + rc->wall_x;
+	}
+	else if (side == 1 && rc->ray.dir.y > 0)
+	{
+		res.x = rc->mapX + rc->wall_x;
+		res.y = rc->mapY;
+	}
+	else
+	{
+		res.x = rc->mapX + rc->wall_x;
+		res.y = rc->mapY + 1.0;
+	}
+	return (res);
+}
+
+void	textured_floor(int side, t_rchelp *rc, t_wolf3d *all)
+{
+	t_vec2		floor_wall;
+	t_vec2		cur_floor;
+	double		cur_dist;
+	t_texture	*texture;
+	int 		y;
+
+	floor_wall = floor_wall_init(side, rc);
+	texture = &all->textures[TEXTURES_NUM - 1];
+	y = rc->end_y - 1;
+	while (++y < HEIGHT)
+	{
+		cur_dist = HEIGHT / (2.0 * y - HEIGHT);
+		cur_floor.x = (cur_dist / rc->dist) * floor_wall.x +
+				(1.0 - (cur_dist / rc->dist)) * all->hero.pos.x;
+		cur_floor.y = (cur_dist / rc->dist) * floor_wall.y +
+				(1.0 - (cur_dist / rc->dist)) * all->hero.pos.y;
+		all->image.pixels[y * WIDTH + rc->x] =
+				(texture->image.pixels[texture->width *
+				(((int)(cur_floor.y * texture->height)) % texture->height) +
+				((int)(cur_floor.x * texture->width)) % texture->width] >> 1) &
+						8355711;
+	}
 }
 
 void	textured_wall(int side, t_rchelp *rc, t_wolf3d *all)
@@ -87,37 +89,32 @@ void	textured_wall(int side, t_rchelp *rc, t_wolf3d *all)
 		tex_x = texture->width - tex_x - 1;
 	else if (side == 1 && rc->ray.dir.y < 0)
 		tex_x = texture->width - tex_x - 1;
-	if (tex_x < 0 || tex_x >63)
-		printf("TEX_X: %d\n", tex_x);
 	while (rc->start_y < rc->end_y)
 	{
 		d = rc->start_y * 2 - HEIGHT * 1 + rc->line_height * 1;
 		tex_y = ((d * texture->height) / rc->line_height) / 2;
-		if (tex_y < 0 || tex_y > 63)
-			printf("tex_y: %d\n", tex_y);
 		color = texture->image.pixels[texture->width * tex_y + tex_x];
 		if (side == 1)
 			color = (color >> 1) & 0x7F7F7F;
 		all->image.pixels[rc->start_y * WIDTH + rc->x] = color;
 		rc->start_y++;
 	}
+	textured_floor(side, rc, all);
 }
 
 void	draw_wall(t_rchelp *rc, int side, t_wolf3d *all)
 {
-	double	dist;
-
 	if (side == 0)
 	{
-		dist = (rc->mapX - rc->ray.origin.x + (1 - rc->stepX) / 2) / rc->ray.dir.x;
-		rc->wall_x = rc->ray.origin.y + dist * rc->ray.dir.y;
+		rc->dist = (rc->mapX - rc->ray.origin.x + (1 - rc->stepX) / 2) / rc->ray.dir.x;
+		rc->wall_x = rc->ray.origin.y + rc->dist * rc->ray.dir.y;
 	}
 	else
 	{
-		dist = (rc->mapY - rc->ray.origin.y + (1 - rc->stepY) / 2) / rc->ray.dir.y;
-		rc->wall_x = rc->ray.origin.x + dist * rc->ray.dir.x;
+		rc->dist = (rc->mapY - rc->ray.origin.y + (1 - rc->stepY) / 2) / rc->ray.dir.y;
+		rc->wall_x = rc->ray.origin.x + rc->dist * rc->ray.dir.x;
 	}
-	rc->line_height = (int)(HEIGHT / dist);
+	rc->line_height = (int)(HEIGHT / rc->dist);
 	rc->start_y = -rc->line_height / 2 + HEIGHT / 2;
 	rc->start_y = rc->start_y < 0 ? 0 : rc->start_y;
 	rc->end_y = rc->line_height / 2 + HEIGHT / 2;

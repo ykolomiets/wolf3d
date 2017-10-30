@@ -3,9 +3,11 @@
 
 # include "mathx.h"
 
-# define WIDTH			800
-# define HEIGHT			600
+# define WIDTH			1600
+# define HEIGHT			900
 # define NUM_THREADS	8
+
+# define TEXTURES_NUM	7
 
 # define MOVE_SPEED		0.03
 # define BOOST			2
@@ -62,7 +64,7 @@ typedef struct  s_wolf3d
     t_image     	image;
     t_hero			hero;
     t_map       	map;
-	t_texture		textures[5];
+	t_texture		textures[TEXTURES_NUM];
 	int				textures_enabled;
 	t_action_set	actions;
 
@@ -98,6 +100,7 @@ typedef struct	s_rchelp
 	int 		mapY;
 	int			tex_num;
 	double		wall_x;
+	double 		dist;
 	int			line_height;
 	int			start_y;
 	int 		end_y;
@@ -109,7 +112,6 @@ void			render(t_wolf3d *all);
 int				ray_casting(t_rchelp *rc, t_map *map);
 void			prepare_ray_casting(t_rchelp *rc, t_hero *hero);
 void			assign_step_and_sideDist(t_rchelp *rc);
-void			fill_floor_ceil(int	*pixels);
 void			draw_wall(t_rchelp *rc, int side, t_wolf3d *all);
 void 			put_error(int error_code);
 

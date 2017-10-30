@@ -4,7 +4,7 @@ int				check_move(double x, double y, int  **walls)
 {
 	int		mapX;
 	int 	mapY;
-	double	t[4];// x - mapX, (mapX + 1) - x, y - mapY, (mapY + 1) - y
+	double	t[4];
 
 	mapX = (int)x;
 	mapY = (int)y;

@@ -31,7 +31,6 @@ void	render(t_wolf3d *all)
 	int i;
 	void *res;
 
-	fill_floor_ceil(all->image.pixels);
 	pthread_attr_init(&attr);
 	pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 	i = -1;

@@ -1,20 +1,22 @@
 #include "wolf3d.h"
 #include "mlx.h"
-#include "libft.h"
 #include "hooks.h"
 #include <stdio.h>
 
 void		textures_loading(t_texture *textures, void *mlx)
 {
-	static char	*file_names[] = {"xpm_textures/greystone.xpm",
-									"xpm_textures/mossy.xpm",
-									"xpm_textures/redbrick.xpm",
-									"xpm_textures/eagle.xpm",
-									"xpm_textures/colorstone.xpm"};
+	static char	*file_names[TEXTURES_NUM] = {"xpm_textures/bluestone.xpm",
+												"xpm_textures/eagle.xpm",
+												"xpm_textures/greystone.xpm",
+												"xpm_textures/mossy.xpm",
+												"xpm_textures/redbrick.xpm",
+												"xpm_textures/wood.xpm",
+												"xpm_textures/colorstone.xpm"
+	};
 	int 		i;
 
 	i = -1;
-	while (++i < 5)
+	while (++i < TEXTURES_NUM)
 	{
 		textures[i].image.image = mlx_xpm_file_to_image(mlx,
 														file_names[i],
@@ -50,20 +52,6 @@ static void	run(t_wolf3d *all)
 	mlx_loop(all->mlx);
 }
 
-void	print_map(t_map *map)
-{
-	printf("MAP %d x %d\n", map->rows, map->cols);
-	for (int i = 0; i < map->rows; i++)
-	{
-		for (int j = 0; j < map->cols; j++)
-		{
-			printf("%d ", map->walls[i][j]);
-		}
-		printf("\n");
-	}
-	printf("-------------------\n");
-}
-
 int     wolf3d(char *file_name)
 {
     t_wolf3d    all;
@@ -72,9 +60,7 @@ int     wolf3d(char *file_name)
     {
         if (!read_map(file_name, &all.map, &all.hero))
         {
-			print_map(&all.map);
 			all.hero.dir = v2(0, 1);
-			printf("hero.pos = (%f, %f), dir = (%f, %f)\n", all.hero.pos.x, all.hero.pos.y, all.hero.dir.x, all.hero.dir.y);
             all.hero.speed = DEFAULT;
 			run(&all);
             return (0);
