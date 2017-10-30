@@ -65,9 +65,10 @@ typedef struct  s_wolf3d
     t_hero			hero;
     t_map       	map;
 	t_texture		textures[TEXTURES_NUM];
+	t_texture		skyboxes[2];
 	int				textures_enabled;
+	int 			skybox_num;
 	t_action_set	actions;
-
 }               t_wolf3d;
 
 typedef struct	s_param

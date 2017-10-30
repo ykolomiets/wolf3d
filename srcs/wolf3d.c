@@ -30,6 +30,27 @@ void		textures_loading(t_texture *textures, void *mlx)
 	}
 }
 
+void		skyboxes_loading(t_texture *skyboxes, void *mlx)
+{
+	static char	*file_names[2] = {"xpm_textures/stars2.xpm",
+									 "xpm_textures/stars4.xpm",};
+	int 		i;
+
+	i = -1;
+	while (++i < 2)
+	{
+		skyboxes[i].image.image = mlx_xpm_file_to_image(mlx,
+														file_names[i],
+														&skyboxes[i].width,
+														&skyboxes[i].height);
+		skyboxes[i].image.pixels =
+				(int *)mlx_get_data_addr(skyboxes[i].image.image,
+										 &skyboxes[i].image.bpp,
+										 &skyboxes[i].image.sl,
+										 &skyboxes[i].image.endian);
+	}
+}
+
 static int  init_wolf(t_wolf3d *all)
 {
     all->mlx = mlx_init();
@@ -37,7 +58,12 @@ static int  init_wolf(t_wolf3d *all)
     all->image.image = mlx_new_image(all->mlx, WIDTH, HEIGHT);
     all->image.pixels = (int *)mlx_get_data_addr(all->image.image, &all->image.bpp,
     &all->image.sl, &all->image.endian);
+	printf("start loading\n");
+	skyboxes_loading(all->skyboxes, all->mlx);
+	printf("skybox loaded\n");
 	textures_loading(all->textures, all->mlx);
+	printf("textures loaded\n");
+	all->skybox_num = 0;
 	all->textures_enabled = NO;
 	all->actions = (t_action_set){NO, NO, NO, NO, NO, NO};
     return (0);

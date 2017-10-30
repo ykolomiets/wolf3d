@@ -1,4 +1,6 @@
 #include "wolf3d.h"
+#include <math.h>
+#include <stdio.h>
 
 void	default_wall(int side, t_rchelp *rc, t_wolf3d *all)
 {
@@ -75,6 +77,24 @@ void	textured_floor(int side, t_rchelp *rc, t_wolf3d *all)
 	}
 }
 
+void 	skybox(t_rchelp *rc, t_wolf3d *all)
+{
+	double		angle;
+	int			i;
+	t_texture	*skybox_text;
+
+	i = 0;
+	angle = (atan2(rc->ray.dir.y, rc->ray.dir.x) + M_PI) / (2 * M_PI);
+	skybox_text = &all->skyboxes[all->skybox_num];
+	while (i < rc->start_y)
+	{
+		all->image.pixels[i * WIDTH + rc->x] =
+				skybox_text->image.pixels[i * skybox_text->width +
+						(int)(angle * skybox_text->width)];
+		i++;
+	}
+}
+
 void	textured_wall(int side, t_rchelp *rc, t_wolf3d *all)
 {
 	t_texture	*texture;
@@ -83,6 +103,7 @@ void	textured_wall(int side, t_rchelp *rc, t_wolf3d *all)
 	int 		d;
 	int			color;
 
+	skybox(rc, all);
 	texture = &all->textures[rc->tex_num];
 	tex_x = (int)(rc->wall_x * texture->width);
 	if (side == 0 && rc->ray.dir.x > 0)
