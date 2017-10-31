@@ -1,7 +1,6 @@
 #include "hooks.h"
 #include "hero.h"
 #include <stdlib.h>
-#include <stdio.h>
 
 static int	pressed_hook2(int keycode, t_wolf3d *all)
 {
@@ -49,7 +48,6 @@ int			pressed_hook(int keycode, t_wolf3d *all)
 
 int			released_hook(int keycode, t_wolf3d *all)
 {
-	printf("keycode: %d\n", keycode);
 	if (keycode == 13 || keycode == 126)
 		all->actions.move_forward = NO;
 	else if (keycode == 1 || keycode == 125)
@@ -65,16 +63,15 @@ int			released_hook(int keycode, t_wolf3d *all)
 	else if (keycode == 257)
 		all->hero.speed = DEFAULT;
 	else if (keycode == 53)
-	{
-		music_off();
-		exit(0);
-	}
+		exit_x(0);
 	else if (keycode == 17)
 		all->textures_enabled = all->textures_enabled ? NO : YES;
 	else if (keycode == 48)
 		all->skybox_num = (all->skybox_num + 1) % 2;
 	else if (keycode == 122)
 		all->help_display = all->help_display ? NO : YES;
+	else if (keycode == 46)
+		all->map_display = all->map_display ? NO : YES;
 	return (0);
 }
 

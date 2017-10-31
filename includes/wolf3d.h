@@ -73,6 +73,7 @@ typedef struct  s_wolf3d
 	int 			skybox_num;
 	t_action_set	actions;
 	int				help_display;
+	int				map_display;
 }               t_wolf3d;
 
 typedef struct	s_param
@@ -111,7 +112,10 @@ void			render(t_wolf3d *all);
 int				ray_casting(t_rchelp *rc, t_map *map);
 void			prepare_ray_casting(t_rchelp *rc, t_hero *hero);
 void			assign_step_and_sideDist(t_rchelp *rc);
-void			draw_wall(t_rchelp *rc, int side, t_wolf3d *all);
+void			draw_strip(t_rchelp *rc, int side, t_wolf3d *all);
+void			textured_wall(int side, t_rchelp *rc, t_wolf3d *all);
+void			skybox(t_rchelp *rc, t_wolf3d *all);
+void			textured_floor(int side, t_rchelp *rc, t_wolf3d *all);
 void 			put_error(int error_code);
 void			music_on();
 void			music_off();

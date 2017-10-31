@@ -16,7 +16,7 @@ void	*render_part(void *param)
 		rc.x = i;
 		prepare_ray_casting(&rc, &p->all->hero);
 		side = ray_casting(&rc, &p->all->map);
-		draw_wall(&rc, side, p->all);
+		draw_strip(&rc, side, p->all);
 		i += NUM_THREADS;
 	}
 	pthread_exit(NULL);

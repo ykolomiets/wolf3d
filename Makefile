@@ -32,7 +32,8 @@ SRC_FILES =		main.c	                    \
                 hooks.c                     \
                 rasterization.c             \
                 ray_casting.c               \
-		music.c				\
+		        music.c				        \
+		        textured_rastr.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 

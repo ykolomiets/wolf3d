@@ -51,18 +51,15 @@ void		skyboxes_loading(t_texture *skyboxes, void *mlx)
 	}
 }
 
-static int  init_wolf(t_wolf3d *all)
+static int	init_wolf(t_wolf3d *all)
 {
     all->mlx = mlx_init();
     all->win = mlx_new_window(all->mlx, WIDTH, HEIGHT, "Wolf3D");
     all->image.image = mlx_new_image(all->mlx, WIDTH, HEIGHT);
     all->image.pixels = (int *)mlx_get_data_addr(all->image.image, &all->image.bpp,
     &all->image.sl, &all->image.endian);
-	printf("start loading\n");
 	skyboxes_loading(all->skyboxes, all->mlx);
-	printf("skybox loaded\n");
 	textures_loading(all->textures, all->mlx);
-	printf("textures loaded\n");
 	all->skybox_num = 0;
 	all->textures_enabled = NO;
 	all->actions = (t_action_set){NO, NO, NO, NO, NO, NO};
@@ -79,7 +76,7 @@ static void	run(t_wolf3d *all)
 	mlx_loop(all->mlx);
 }
 
-int     wolf3d(char *file_name)
+int			wolf3d(char *file_name)
 {
     t_wolf3d    all;
 

@@ -1,6 +1,5 @@
 #include "wolf3d.h"
 #include "libft.h"
-#include <stdlib.h>
 
 int	main(int argc, char **argv)
 {
